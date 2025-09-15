@@ -31,7 +31,7 @@ CREATE TABLE IF NOT EXISTS biographies (
 );
 ```
 
-3. Add a biography
+3. Add two biographies
 
 ```sql
 INSERT INTO
