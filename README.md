@@ -53,7 +53,7 @@ LeBron James''s career is a testament to his dedication, skill, and longevity. H
   );
 ```
 
-5. Create a vectorizer for `biographies`
+4. Create a vectorizer for `biographies`
 
 ```sql
 SELECT ai.create_vectorizer(
@@ -64,7 +64,19 @@ SELECT ai.create_vectorizer(
 );
 ```
 
-4. Create a RAG function
+5. See the embeddings in action
+
+```sql
+SELECT
+    name,
+    chunk,
+    embedding <=>  ai.ollama_embed('nomic-embed-text', 'Who is Stephen Curry?', host => 'http://ollama:11434') as distance
+FROM biographies_content_embeddings
+ORDER BY distance
+LIMIT 10;
+```
+
+6. Create a RAG function
 
 ```sql
 CREATE
@@ -96,20 +108,8 @@ END;
 $$ LANGUAGE plpgsql;
 ```
 
-5. Try the function
+7. Try the function
 
 ```sql
 SELECT generate_rag_response('Who is Stephen Curry?');
-```
-
-6. See the embeddings in action
-
-```sql
-SELECT
-    name,
-    chunk,
-    embedding <=>  ai.ollama_embed('nomic-embed-text', 'Who is Stephen Curry?', host => 'http://ollama:11434') as distance
-FROM biographies_content_embeddings
-ORDER BY distance
-LIMIT 10;
 ```
