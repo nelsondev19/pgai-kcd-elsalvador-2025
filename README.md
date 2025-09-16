@@ -69,10 +69,9 @@ SELECT ai.create_vectorizer(
 ```sql
 SELECT
     name,
-    chunk,
-    embedding <=>  ai.ollama_embed('nomic-embed-text', 'Who is Stephen Curry?', host => 'http://ollama:11434') as distance
+    chunk
 FROM biographies_content_embeddings
-ORDER BY distance
+ORDER BY embedding <=>  ai.ollama_embed('nomic-embed-text', 'Who is Stephen Curry?', host => 'http://ollama:11434')
 LIMIT 10;
 ```
 
